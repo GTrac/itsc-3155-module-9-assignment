@@ -6,4 +6,34 @@
 <h1 class="mb-5">Search Movie Ratings</h1>
 <p class="mb-3">Search for a movie rating below</p>
 <!-- TODO: Feature 3 -->
+<form>
+    <div class="form-group">
+        <input type="text" name="search" id="search" placeholder="Search for Film by Title">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+<br>
+{% if search_active == True%}
+{% if showMessage == True %}
+<h3 class="mb-5">{{message}}</h3>
+{% endif %}
+{%if showTable%}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Movie Title</th>
+            <th scope="col">Director</th>
+            <th scope="col">Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="col">{{movieTitle}}</th>
+            <th scope="col">{{movieDirector}}</th>
+            <th scope="col">{{movieRating}}</th>
+        </tr>
+    </tbody>
+</table>
+{% endif %}
+{% endif %}
 {% endblock %}

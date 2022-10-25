@@ -1,4 +1,5 @@
-from flask import Flask, redirect, render_template
+from cgitb import text
+from flask import Flask, redirect, render_template, request
 from src.repositories.movie_repository import get_movie_repository
 
 app = Flask(__name__)
@@ -32,4 +33,36 @@ def create_movie():
 @app.get('/movies/search')
 def search_movies():
     # TODO: Feature 3
-    return render_template('search_movies.html', search_active=True)
+    #get movie title,
+    movieSearch = request.args.get('search')
+    message = ''
+    #search by movie in database
+    try:
+        movie = movie_repository.get_movie_by_title(movieSearch)
+        movieTitle = movie.title
+        movieDirector = movie.director
+        movieRating = movie.rating
+        showTable = True
+        showMessage = True
+        message = 'One result matching "{0}"'.format(movieSearch)
+    except:
+        message = '{0} not found! try a different search'.format(movieSearch)
+        movieTitle = ''
+        movieDirector = '' 
+        movieRating = ''
+        showTable = False
+        if movieSearch == None or movieSearch == '':
+            showMessage = False
+        else:
+            showMessage = True
+    finally:
+    #return results 
+        return render_template(
+            'search_movies.html', 
+            search_active=True, 
+            showTable = showTable, 
+            message = message, 
+            movieTitle = movieTitle, 
+            movieDirector = movieDirector, 
+            movieRating = movieRating,
+            showMessage = showMessage)

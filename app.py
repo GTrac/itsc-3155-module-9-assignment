@@ -1,5 +1,4 @@
 from flask import Flask, redirect, render_template
-
 from src.repositories.movie_repository import get_movie_repository
 
 app = Flask(__name__)
@@ -14,7 +13,6 @@ def index():
 
 @app.get('/movies')
 def list_all_movies():
-    movie_repository.create_movie('Star Wars', 'George Lucas', 5)
     movie_list=movie_repository.get_all_movies()
     return render_template('list_all_movies.html', list_movies_active=True, movie_list=movie_list)
 

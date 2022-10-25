@@ -14,7 +14,9 @@
 </form>
 <br>
 {% if search_active == True%}
+{% if showMessage == True %}
 <h3 class="mb-5">{{message}}</h3>
+{% endif %}
 {%if showTable%}
 <table class="table">
     <thead>

@@ -18,6 +18,10 @@ def test_get_movie_with_None():
 
 def test_get_movie_with_Movie():
     test_app = app.test_client()
+    with test_app.application.app_context():
+        movieRepo = get_movie_repository()
+        movieRepo.create_movie('Star Wars', 'George Lucas', 5)
+    #test_app.application.view_functions
     response = test_app.get('/movies/search?search=Star+Wars')
     assert b'One result matching' in response.data
     assert b'<table class="table">'in response.data

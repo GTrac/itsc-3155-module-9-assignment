@@ -43,6 +43,7 @@ def search_movies():
         movieDirector = movie.director
         movieRating = movie.rating
         showTable = True
+        showMessage = True
         message = 'One result matching "{0}"'.format(movieSearch)
     except:
         message = '{0} not found! try a different search'.format(movieSearch)
@@ -50,6 +51,10 @@ def search_movies():
         movieDirector = '' 
         movieRating = ''
         showTable = False
+        if movieSearch == None or movieSearch == '':
+            showMessage = False
+        else:
+            showMessage = True
     finally:
     #return results 
         return render_template(
@@ -59,4 +64,5 @@ def search_movies():
             message = message, 
             movieTitle = movieTitle, 
             movieDirector = movieDirector, 
-            movieRating = movieRating)
+            movieRating = movieRating,
+            showMessage = showMessage)
